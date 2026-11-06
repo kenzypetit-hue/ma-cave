@@ -1,0 +1,32 @@
+MA CAVE — première version de test
+
+Contenu :
+- 28 références et 104 bouteilles importées depuis le fichier Ma Cave.xlsx.
+- Gestion du stock par +1 / -1.
+- Fiches vins modifiables avec notes personnelles.
+- Recherche et filtre par couleur.
+- Historique des mouvements.
+- Vue apogée (à compléter selon vos données).
+- Sauvegarde/restauration JSON et export CSV compatible Excel.
+- Stockage local sur l'appareil et cache hors connexion après premier chargement.
+
+Installation / test :
+Cette application est une PWA. Pour l'installer sur Android, les fichiers doivent être publiés sur un hébergement HTTPS. Ouvrir ensuite l'adresse dans Chrome sur le Pixel, puis choisir « Installer l'application » ou « Ajouter à l'écran d'accueil ».
+
+Les données sont conservées dans le stockage du navigateur de l'appareil. Télécharger régulièrement une sauvegarde JSON. Effacer les données de Chrome ou désinstaller sans sauvegarde peut supprimer les données locales.
+
+Note : l'export actuel est un CSV séparé par points-virgules, lisible dans Excel. L'export XLSX natif et la sauvegarde Google Drive automatique ne sont pas encore intégrés.
+
+
+VERSION 2 - PHOTOS
+- Vous pouvez prendre une photo de l’étiquette ou choisir une image depuis la galerie.
+- La photo est conservée dans la fiche et apparaît dans la liste des vins.
+- La reconnaissance automatique est prévue via un endpoint sécurisé /api/recognize-label. Elle nécessite encore le déploiement du serveur et la configuration d’une clé API ; elle n’est pas active dans cette version locale.
+- Les photos augmentent la taille de la sauvegarde locale.
+
+
+VERSION 3 - RECONNAISSANCE OCR GRATUITE
+- Bouton « Reconnaître l’étiquette » : lecture du texte par Tesseract.js, logiciel libre et gratuit.
+- Aucun appel à une API payante et aucune clé API. L’image est analysée dans le navigateur sur l’appareil.
+- La première utilisation nécessite une connexion Internet pour charger Tesseract.js et les données linguistiques français/anglais. Le moteur n’est pas encore embarqué dans l’application : la reconnaissance n’est donc pas garantie hors connexion.
+- Les informations extraites sont affichées et quelques champs sont proposés automatiquement (millésime, couleur, format, cépages, domaine et certaines appellations). Vérifiez systématiquement les propositions : une étiquette n’indique pas toujours toutes ces informations et l’OCR peut faire des erreurs.
