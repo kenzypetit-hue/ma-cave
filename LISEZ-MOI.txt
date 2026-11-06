@@ -1,0 +1,27 @@
+MA CAVE V4 – SYNCHRONISATION GOOGLE DRIVE
+
+Mise à jour :
+- Remplacez les fichiers du dépôt GitHub par le contenu de cette archive.
+- Ne supprimez pas les données locales de votre navigateur/PWA.
+- Les données initiales ont été retirées du code public : votre cave personnelle n'est plus publiée avec les fichiers du site.
+- Le stockage local existant (clé ma-cave-v1) est conservé.
+
+Google Cloud :
+- Identifiant OAuth de type Application Web.
+- Origine JavaScript autorisée : https://kenzypetit-hue.github.io
+- API activée : Google Drive API.
+- Audience : Externe ; ajoutez votre adresse Google comme utilisateur test tant que l'application est en mode Test.
+- Le code utilise le périmètre https://www.googleapis.com/auth/drive.file.
+- Aucun secret client ne doit être intégré au site. Seul l'ID client public figure dans drive-sync.js.
+
+Sauvegarde :
+- Dans Ma Cave > Sauvegarde & export > Connecter Google Drive.
+- Autorisez l'accès demandé.
+- Ma Cave crée un fichier « Ma Cave - sauvegarde.json » dans votre Drive et le met à jour après les modifications.
+- Les photos sont incluses dans le JSON.
+- En cas de reconnexion, le bouton « Reconnecter Google Drive » permet de renouveler la session.
+
+Limites importantes :
+- L'accès Google du navigateur repose sur un jeton d'accès à durée limitée. Google peut demander une reconnexion périodique ; une synchronisation en arrière-plan lorsque l'application est fermée n'est pas garantie par une simple PWA sans serveur sécurisé.
+- La synchronisation s'effectue lorsque l'application est ouverte, connectée à Internet et dispose d'une session Google valide.
+- Les données restent sauvegardées localement même si la synchronisation échoue.

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#263b32"><meta name="description" content="Votre cave à vin, simplement.">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css">
+<title>Ma Cave</title>
+</head>
+<body>
+<header class="topbar"><div class="brand"><div class="brandmark">MC</div><div><div class="brandname">Ma Cave</div><div class="brandtag">Votre collection, en un regard</div></div></div><button class="iconbtn" id="backupBtn" aria-label="Sauvegarder" title="Sauvegarder">⇧</button></header>
+<main>
+<section class="hero"><div><div class="eyebrow">VOTRE CAVE PERSONNELLE</div><h1>Bonjour,<br><em>voici votre cave.</em></h1><p>Suivez vos bouteilles, vos achats et vos dégustations.</p></div><div class="hero-art" aria-hidden="true">🍷</div></section>
+<section class="stats"><article class="stat primary"><span>Bouteilles en stock</span><strong id="totalBottles">104</strong><small>toutes références confondues</small></article><article class="stat"><span>Références</span><strong id="totalRefs">28</strong><small>vins différents</small></article><article class="stat"><span>Valeur d'achat estimée</span><strong id="totalValue">—</strong><small>sur la base des prix renseignés</small></article></section>
+<section class="toolbar"><div><div class="eyebrow">COLLECTION</div><h2>Mes bouteilles</h2></div><button class="addbtn" id="addBtn"><b>＋</b> Ajouter</button></section>
+<div class="filters"><label class="search"><span>⌕</span><input id="search" placeholder="Rechercher un vin, domaine, région…"></label><select id="typeFilter"><option value="">Toutes les couleurs</option><option>Rouge</option><option>Blanc</option><option>Rosé</option><option>Champagne</option><option>Effervescent</option></select></div>
+<div class="wine-list" id="wineList"></div>
+<section class="bottom-tools"><div><div class="eyebrow">VOTRE HISTORIQUE</div><h2>Derniers mouvements</h2></div><button class="textbtn" id="historyBtn">Tout voir →</button></section><div id="recentMoves" class="moves"></div>
+</main>
+<nav class="nav"><button class="active" data-tab="stock">◫<span>Cave</span></button><button data-tab="maturity">◷<span>Apogée</span></button><button data-tab="stats">▥<span>Stats</span></button></nav>
+<dialog id="wineDialog"><form method="dialog" id="wineForm"><div class="dialoghead"><div><div class="eyebrow">FICHE VIN</div><h2 id="dialogTitle">Ajouter un vin</h2></div><button class="close" value="cancel" aria-label="Fermer">×</button></div><input type="hidden" id="wineId"><div class="formgrid">
+<label>Type de vin<select id="fType"><option>Rouge</option><option>Blanc</option><option>Rosé</option><option>Champagne</option><option>Effervescent</option><option>Autre</option></select></label>
+<label>Région<input id="fRegion" placeholder="Ex. Bourgogne"></label><label>Appellation<input id="fAppellation"></label><label>Domaine<input id="fDomain"></label><label class="wide">Nom / cuvée<input id="fName"></label><label class="wide">Cépage<input id="fGrapes"></label><label>Millésime<input id="fVintage" inputmode="numeric" placeholder="2022"></label><label>Format<select id="fFormat"><option>Classique</option><option>Magnum</option><option>Jéroboam</option><option>Clavelin</option><option>Autre</option></select></label><label>Prix d'achat (€)<input id="fPrice" type="number" min="0" step="0.01"></label><label>Quantité<input id="fQty" type="number" min="0" step="1" value="0"></label><label>Période de garde<input id="fAging" placeholder="Ex. 2024 - 2030"></label><label>Apogée<input id="fPeak" placeholder="Ex. 2027"></label><label>Date limite<input id="fMax" placeholder="Ex. 2032"></label><label class="wide">Notes personnelles<textarea id="fNotes" rows="3" placeholder="Vos impressions, accords, conseils de dégustation…"></textarea></label>
+<div class="wide photo-section"><div class="field-label">Photo de l’étiquette</div>
+<div class="photo-tools"><input type="file" id="fPhoto" accept="image/*" capture="environment"><button type="button" class="secondary" id="recognizeBtn">Reconnaître l’étiquette</button></div>
+<img id="photoPreview" class="photo-preview" alt="Aperçu de l’étiquette" hidden><small class="photo-hint">La reconnaissance utilise un moteur OCR open source gratuit. La première utilisation nécessite Internet pour charger le moteur et le modèle français ; l’analyse de la photo est ensuite effectuée sur votre appareil.</small><div id="ocrStatus" class="ocr-status" aria-live="polite"></div><div class="wide ocr-result-label"><label for="ocrText">Texte lu sur l’étiquette</label><textarea id="ocrText" rows="5" placeholder="Le texte reconnu apparaîtra ici…" readonly></textarea></div></div><div class="dialogactions"><button type="button" class="secondary" id="cancelForm">Annuler</button><button class="primarybtn" id="saveWine" value="default">Enregistrer</button></div></form></dialog>
+<dialog id="historyDialog"><div class="dialoghead"><div><div class="eyebrow">TRAÇABILITÉ</div><h2>Historique des mouvements</h2></div><button class="close" id="closeHistory">×</button></div><div id="allMoves" class="moves"></div></dialog>
+<dialog id="backupDialog"><div class="dialoghead"><div><div class="eyebrow">VOS DONNÉES</div><h2>Sauvegarde & export</h2></div><button class="close" id="closeBackup">×</button></div><p class="muted">Vos données restent enregistrées sur cet appareil. Connectez Google Drive pour activer la synchronisation automatique de votre cave et de vos photos.</p>
+<div class="drive-panel">
+  <div class="drive-title">Synchronisation Google Drive</div>
+  <div id="driveStatus" class="drive-status" aria-live="polite">Non connecté à Google Drive.</div>
+  <div class="backup-actions">
+    <button class="primarybtn" id="connectDrive">Connecter Google Drive</button>
+    <button class="secondary" id="syncDrive" hidden>Synchroniser maintenant</button>
+  </div>
+</div>
+<div class="backup-actions"><button class="primarybtn" id="downloadBackup">Télécharger une sauvegarde complète</button><button class="secondary" id="exportCsv">Exporter le stock pour Excel (.csv)</button><label class="filebtn">Restaurer une sauvegarde<input type="file" id="restoreFile" accept="application/json"></label></div><p class="tiny">La sauvegarde Google Drive contient les fiches, les photos et l'historique des mouvements. La connexion Google peut devoir être renouvelée périodiquement. L'export local reste disponible en solution de secours.</p></dialog>
+<div class="toast" id="toast" role="status"></div>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="drive-sync.js"></script>\n<script src="app.js"></script>
+</body></html>
